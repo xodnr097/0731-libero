@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.libero.service.domain.Product;
+import com.libero.service.domain.Review;
 import com.libero.service.product.ProductDAO;
 import com.libero.service.product.ProductService;
 
@@ -79,6 +80,13 @@ public class ProductServiceImpl implements ProductService{
 	
 	public void addReviewImage(HashMap<String, Object> hashMap) {
 		productDAO.addReviewImage(hashMap);
+	}
+
+	@Override
+	public List<Review> getReview(int prodNo) {
+		
+		return productDAO.getReview(prodNo);
+		
 	}
 	
 

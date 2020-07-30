@@ -148,7 +148,7 @@
 										"Accept" : "application/json",
 										"Content-Type" : "application/json"
 									 },
-							data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content},
+							data: {"userId": "${sessionScope.user.userId}", "starRate" : starRate, "reviewContent" : content, "buyNo" : 10001},
 							success : function(data, success){
 								
 								
@@ -165,7 +165,7 @@
 					var inputFile = $("input[name='uploadFile']");
 					var files = inputFile[0].files;
 						formData.append('files', files[0]);
-						formData.append('buyNo', 13);
+						formData.append('buyNo', 10001);
 						
 						alert(files);
 						alert(formData.get('buyNo'));

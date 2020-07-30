@@ -136,7 +136,7 @@ public class ProductRestController {
 			
 					//리뷰 등록
 					@RequestMapping(value="json/addReview", method = RequestMethod.POST)
-					public String addReview(HttpSession session, String reviewContent, String userId, int starRate) throws Exception {
+					public String addReview(HttpSession session, String reviewContent, String userId, int starRate, int buyNo) throws Exception {
 							
 						System.out.println("/product/addReview : POST");
 						//User user = (User)session.getAttribute("user");
@@ -144,12 +144,13 @@ public class ProductRestController {
 						System.out.println("아이디 : "+userId);
 						System.out.println("별점 : "+starRate);
 						System.out.println("내용 : "+reviewContent);
+						System.out.println("buyNo"+buyNo);
 						
 							
 							HashMap <String, Object> hashMap = new HashMap<String, Object>();
 							
 							hashMap.put("userId", userId);
-							hashMap.put("buyNo", 13);
+							hashMap.put("buyNo", buyNo);
 							hashMap.put("starRate", starRate);
 							hashMap.put("reviewContent", reviewContent);
 							productService.addReview(hashMap);
@@ -188,7 +189,7 @@ public class ProductRestController {
 									String fileRoot = path+"product/fileUpload/review/"; //파일 경로
 									String savedFileName = UUID.randomUUID() + extension; //저장될 파일 명
 									
-									hashMap.put("url", "/libero/resources/images/publish/fileUpload/"+savedFileName);
+									hashMap.put("reviewImage", savedFileName);
 									hashMap.put("buyNo", buyNo);
 											
 									File f = new File(fileRoot+savedFileName);

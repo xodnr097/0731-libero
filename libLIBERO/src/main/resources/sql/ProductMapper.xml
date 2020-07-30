@@ -45,10 +45,9 @@
 		<result property="reviewImage"	 column="review_image" 		jdbcType="VARCHAR"/>
 		<result property="starRate"		 column="star_rate" 		jdbcType="INTEGER"/>
 		<result property="regDate"		 column="reg_date" 			jdbcType="TIMESTAMP"/>
-	
-	
+		<result property="prodNo"		 column="prod_no"			jdbcType="INTEGER"/>
 	</resultMap>
-		
+			
 	<!--  SQL : SELECT LIST -->
 	<select id="getBookList" resultMap="productSelectMap">
 			SELECT *
@@ -154,18 +153,33 @@
 	</delete>
 	
 	<!-- 리뷰 기능 -->
+	<select id="getProdNo"	parameterType="hashMap" resultMap="productSelectMap">
+					SELECT prod_no
+					FROM buy
+					WHERE buy_no = #{buyNo}
+	
+	</select>
+	
+	
 	<insert id="addReview"	parameterType="hashMap">
 					INSERT
 					INTO
-					review(user_id, buy_no,  review_content, star_rate)
-					VALUES (#{userId}, #{buyNo}, #{reviewContent}, #{starRate})
+					review(user_id, buy_no,  review_content, star_rate, prod_no)
+					VALUES (#{userId}, #{buyNo}, #{reviewContent}, #{starRate}, #{prodNo})
 	</insert>
 	
 	<update id="addReviewImage" parameterType="hashMap">
 					UPDATE review
-					SET review_image = #{url}			
+					SET review_image = #{reviewImage}			
 					WHERE buy_no = #{buyNo}
 	</update>
+	
+	<select id="getReview"	parameterType="int"	resultMap="reviewSelectMap">
+					SELECT *
+					FROM review
+					WHERE prod_no = #{prodNo}
+	
+	</select>
 	 
 </mapper>
 

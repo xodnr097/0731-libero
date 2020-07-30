@@ -81,7 +81,24 @@
 		      
 		    </div>
 		    <div class="tab-pane fade" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
-
+						 
+						 
+			 		  <c:set var="i" value="0" />
+							  <c:forEach var="review" items="${review}">
+								<c:set var="i" value="${ i+1 }" />
+								<tr>
+									<td align="center">${ i }</td>
+									<td align="left"  title="Click : 주문정보 확인">
+									
+										${review.starRate} <br/>
+										${review.userId }<br/>
+										${review.regDate} <br/>
+										${review.reviewContent} <br/>
+										${review.reviewImage}
+										<img src="../../resources/images/product/fileUpload/review/${review.reviewImage}">
+										
+									</td>
+					          </c:forEach>
 					
 		    </div>
 		    <div class="tab-pane fade" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
