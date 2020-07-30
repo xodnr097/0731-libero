@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.libero.service.cart.CartService;
 import com.libero.service.domain.Product;
+import com.libero.service.domain.Review;
 import com.libero.service.domain.User;
 import com.libero.service.product.ProductService;
 import com.libero.service.wish.WishService;
@@ -120,7 +121,7 @@ public class ProductController{
 		
 				//method 서비스상품화면 출력
 				@RequestMapping(value="getProduct/{prodNo}", method = RequestMethod.GET)
-				public ModelAndView getBook(HttpSession session, @PathVariable int prodNo) throws Exception {
+				public ModelAndView getProduct(HttpSession session, @PathVariable int prodNo) throws Exception {
 					System.out.println("/product/getProduct : GET");	
 					
 					String userId ="";
@@ -153,10 +154,18 @@ public class ProductController{
 						}else {
 							modelAndView.setViewName("forward:/view/product/getProduct.jsp");
 						}
+						
+						
+						//리뷰 데이터
+						List<Review> review = productService.getReview(prodNo);
+						modelAndView.addObject("review", review);
+						
+						
+						
 						return modelAndView;
 				}
 				
-				//method 서비스상품화면 출력
+				//method 위시리스트 출력
 				@RequestMapping(value="getWishList", method = RequestMethod.GET)
 				public ModelAndView getWishList(HttpSession session) throws Exception {
 					

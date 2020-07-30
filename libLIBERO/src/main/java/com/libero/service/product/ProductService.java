@@ -1,9 +1,11 @@
 package com.libero.service.product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.libero.service.domain.Product;
+import com.libero.service.domain.Review;
 
 public interface ProductService {	
 	//public Product getProduct(int prodNo) throws Exception;
@@ -23,6 +25,8 @@ public interface ProductService {
 	public void addReview(HashMap<String, Object> hashMap) ;
 
 	public void addReviewImage(HashMap<String, Object> hashMap);
+
+	public List<Review> getReview(int prodNo);
 
 	
 }

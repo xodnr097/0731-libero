@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.libero.service.domain.Buy;
 import com.libero.service.domain.Product;
+import com.libero.service.domain.Review;
 import com.libero.service.product.ProductDAO;
 
 
@@ -53,11 +55,22 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public void addReview(HashMap<String, Object> hashMap) {
+		
+		Product product = sqlSession.selectOne("ProductMapper.getProdNo", hashMap);
+		int prodNo = product.getProdNo();
+		hashMap.put("prodNo", prodNo);
 		sqlSession.insert("ProductMapper.addReview", hashMap);
 	}
 	
 	@Override
 	public void addReviewImage(HashMap<String, Object> hashMap) {
 		sqlSession.update("ProductMapper.addReviewImage", hashMap);
+	}
+
+	@Override
+	public List<Review> getReview(int prodNo) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectList("ProductMapper.getReview", prodNo);
 	}
 }//end class

@@ -16,5 +16,6 @@ public class Review implements Serializable{
 		private String reviewImage;
 		private int starRate;
 		private Date regDate;
+		private int prodNo;
 
 }
