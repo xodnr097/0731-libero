@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="StatisticsMapper">
+
+	<resultMap id="stSelectMap" type="statistics">
+		<result property="prodNo"			column="prod_no"			jdbcType="INTEGER"/>
+		<result property="jan"				column="Jan"				jdbcType="INTEGER"/>
+		<result property="feb"				column="Feb"				jdbcType="INTEGER"/>
+		<result property="mar"				column="Mar"				jdbcType="INTEGER"/>
+		<result property="apr"				column="Apr"				jdbcType="INTEGER"/>
+		<result property="may"				column="May"				jdbcType="INTEGER"/>
+		<result property="jun"				column="Jun"				jdbcType="INTEGER"/>
+		<result property="jul"				column="Jul"				jdbcType="INTEGER"/>
+		<result property="aug"				column="Aug"				jdbcType="INTEGER"/>
+		<result property="sep"				column="Sep"				jdbcType="INTEGER"/>
+		<result property="oct"				column="Oct"				jdbcType="INTEGER"/>
+		<result property="nov"				column="Nov"				jdbcType="INTEGER"/>
+		<result property="dec"				column="Dec"				jdbcType="INTEGER"/>
+		<result property="totalCount"		column="total_yearly"		jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="getDateStatistics"	parameterType="statistics"	resultMap="stSelectMap">
+		SELECT 
+		    SUM(IF(month = 'Jan', total, 0)) AS 'Jan',
+		    SUM(IF(month = 'Feb', total, 0)) AS 'Feb',
+		    SUM(IF(month = 'Mar', total, 0)) AS 'Mar',
+		    SUM(IF(month = 'Apr', total, 0)) AS 'Apr',
+		    SUM(IF(month = 'May', total, 0)) AS 'May',
+		    SUM(IF(month = 'Jun', total, 0)) AS 'Jun',
+		    SUM(IF(month = 'Jul', total, 0)) AS 'Jul',
+		    SUM(IF(month = 'Aug', total, 0)) AS 'Aug',
+		    SUM(IF(month = 'Sep', total, 0)) AS 'Sep',
+		    SUM(IF(month = 'Oct', total, 0)) AS 'Oct',
+		    SUM(IF(month = 'Nov', total, 0)) AS 'Nov',
+		    SUM(IF(month = 'Dec', total, 0)) AS 'Dec',
+		    SUM(total) AS total_yearly
+		FROM (
+			SELECT DATE_FORMAT(pay_date, "%b") AS month, SUM(buy_amount) AS total
+			FROM pay p
+			LEFT JOIN buy b
+			ON b.pay_no=p.pay_no
+			WHERE pay_date &lt;= NOW() 
+			AND pay_date &gt;= DATE_ADD(NOW(), INTERVAL - 12 month)
+			AND b.prod_no IN(#{prodNo})
+			AND b.buy_code IN('paid')
+			GROUP BY DATE_FORMAT(pay_date, "%m-%Y")) AS sub
+	</select>
+</mapper>

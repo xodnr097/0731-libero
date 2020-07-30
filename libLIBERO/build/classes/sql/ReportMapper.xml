@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="ReportMapper">
+	
+	<resultMap id="reportSelectMap" 	type="report">
+		
+		<result property="reportNo"		column="repost_no"		jdbcType="INTEGER"/>
+		<result property="reportType" 	column="report_type"	jdbcType="SMALLINT" />
+		<result property="regDate" 		column="reg_date" 		jdbcType="TIMESTAMP" />
+	
+		<association property="user"  	javaType="user">
+		<id		property="userId" 		column="user_id" 			jdbcType="VARCHAR"/>
+		<result property="password" 	column="password" 			jdbcType="VARCHAR" />
+		<result property="nickname"		column="nickname"			jdbcType="VARCHAR"/>
+		<result property="profile"		column="profile"			jdbcType="VARCHAR"/>
+		<result property="genderCode"	column="gender_code"		jdbcType="CHAR"/>
+		<result property="name"			column="name"				jdbcType="VARCHAR"/>
+		<result property="address"		column="address"			jdbcType="VARCHAR"/>
+		<result property="phone"		column="phone"				jdbcType="VARCHAR"/>
+		<result property="phoneCode"	column="phone_code"			jdbcType="SMALLINT"/>
+		<result property="userCode"		column="user-_code"			jdbcType="SMALLINT"/>
+		<result property="role" 		column="role" 				jdbcType="CHAR" />
+		<result property="regDate" 		column="reg_date" 			jdbcType="TIMESTAMP" />
+		<result property="factoryNo"	column="factory_no"			jdbcType="VARCHAR"/>
+		<result	property="cashCode"		column="cash_code"			jdbcType="CHAR"/>
+		<result property="a5Price"		column="a5_price"			jdbcType="INTEGER"/>
+		<result property="a4Price"		column="a4_price"			jdbcType="INTEGER"/>
+		<result property="b5Price"		column="b5_price"			jdbcType="INTEGER"/>
+		<result property="colorPrice"	column="color_price"		jdbcType="INTEGER"/>
+		<result property="blackPrice"	column="black_price"		jdbcType="INTEGER"/>
+		<result property="snowPrice"	column="snow_price"			jdbcType="INTEGER"/>
+		<result property="montPrice"	column="mont_price"			jdbcType="INTEGER"/>
+		<result property="artePrice"	column="arte_price"			jdbcType="INTEGER"/>
+		<result property="whitePrice"	column="white_price"		jdbcType="INTEGER"/>
+		<result property="ivoryPrice"	column="ivory_price"		jdbcType="INTEGER"/>
+		<result property="roughPrice"	column="rough_price"		jdbcType="INTEGER"/>
+		</association>
+		
+		<association property="product"  	javaType="product">
+		<id		property="prodNo" 		column="prod_no" 			jdbcType="VARCHAR" />
+		<result property="prodType" 	column="prod_type" 			jdbcType="VARCHAR" />
+		<result property="prodName"		column="prod_name" 			jdbcType="VARCHAR" />
+		<result property="prodDetail" 	column="prod_detail" 		jdbcType="LONGVARCHAR" />
+		<result property="retailPrice" 	column="retail_price" 		jdbcType="INTEGER" />
+		<result property="blindCode" 	column="blind_code" 		jdbcType="CHAR" />
+		<result property="prodThumbnail" column="prod_thumbnail" 	jdbcType="VARCHAR" />
+		<result property="coverFile" 	column="cover_file" 		jdbcType="VARCHAR" />
+		<result property="purposeCode" 	column="purpose_Code" 		jdbcType="CHAR" />
+		<result property="manuFile"		column="manu_File"			jdbcType="CHAR" />
+		<result property="regDate"		column="reg_Date"			jdbcType="TIMESTAMP" />
+		<result property="discountCode"	 column="discount_code"		jdbcType="CHAR" />
+		<result property="bookPage"			column="manu_File"		jdbcType="CHAR" />
+		<result property="printPrice"	 column="print_price"		jdbcType="INTEGER" />
+		<result property="creator"		 column="creator"			jdbcType="VARCHAR" />
+		<result property="purposeCode"	 column="purpose_code"		jdbcType="CHAR" />
+		<result property="colorType"	 column="color_type"		jdbcType="CHAR" />
+		<result property="sizeType"		 column="size_type"			jdbcType="CHAR" />
+		<result property="coverType"	 column="cover_type"		jdbcType="CHAR" />
+		<result property="innerType"	 column="inner_type"		jdbcType="CHAR" />
+		<result property="tempCode"		 column="temp_code"			jdbcType="SMALLINT" />
+		<result property="bookCategory"	 column="book_category"		jdbcType="VARCHAR" />
+		<result property="likeCount"	 column="like_count"		jdbcType="INTEGER" />
+		<result property="wishNo"		 column="wish_no"			jdbcType="INTEGER" />
+		</association>
+		
+		<association property="post"  	javaType="post">
+		<result property="postNo"		column="post_no"		jdbcType="INTEGER"/>
+		<result property="postType" 	column="post_type"		jdbcType="CHAR" />
+		<result property="postName"		column="post_name"		jdbcType="VARCHAR" />
+		<result property="postContent"	column="post_content"	jdbcType="VARCHAR" />
+		<result property="regDate" 		column="reg_date" 		jdbcType="TIMESTAMP" />
+		<result property="qnaRegType"	column="qna_reg_type"	jdbcType="CHAR" />
+		<result property="qnaCode"		column="qna_code"		jdbcType="CHAR" />
+		<result property="blindCode"	column="blind_code"		jdbcType="CHAR" />
+		<result property="viewCount"	column="view_count"		jdbcType="INTEGER"/>
+		<result property="commentCount" column="comment_count"  jdbcType="INTEGER"/>
+		<result property="reportCount"  column="report_count"	jdbcType="INTEGER"/>
+		</association>
+		
+	</resultMap>
+		
+	<insert id="addPostReport" parameterType="report">	
+ 		INSERT
+ 		INTO report(
+ 			report_type, post_no, user_id)
+ 		VALUES(#{reportType:SMALLINT}, #{post_no:INTEGER}, #{user_id:VARCHAR})
+ 	</insert>
+
+
+</mapper>
